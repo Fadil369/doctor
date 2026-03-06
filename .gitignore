@@ -4,6 +4,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Mobile app dependencies (managed separately)
+mobile/node_modules/
+mobile/.expo/
+
 # Build outputs
 dist/
 build/

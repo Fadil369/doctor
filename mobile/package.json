@@ -1,0 +1,70 @@
+{
+  "name": "brainsait-health",
+  "version": "1.0.0",
+  "description": "BrainSAIT Unified Health Mobile App - HIPAA/NPHIES compliant health data platform",
+  "main": "expo-router/entry",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "test": "jest --passWithNoTests",
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx"
+  },
+  "dependencies": {
+    "expo": "~51.0.0",
+    "expo-router": "~3.5.0",
+    "expo-status-bar": "~1.12.1",
+    "react": "18.2.0",
+    "react-native": "0.74.5",
+    "react-i18next": "^15.0.0",
+    "i18next": "^23.0.0",
+    "@react-navigation/native": "^6.1.0",
+    "@react-navigation/bottom-tabs": "^6.5.0",
+    "@react-navigation/stack": "^6.3.0",
+    "react-native-safe-area-context": "4.10.5",
+    "react-native-screens": "3.31.1",
+    "expo-linear-gradient": "~13.0.2",
+    "expo-blur": "~13.0.2",
+    "@expo/vector-icons": "^14.0.0",
+    "react-native-svg": "15.2.0",
+    "expo-secure-store": "~13.0.1",
+    "expo-crypto": "~13.0.2",
+    "expo-health": "~1.2.0",
+    "react-native-health": "^1.19.0",
+    "expo-localization": "~15.0.3",
+    "react-native-reanimated": "~3.10.1",
+    "react-native-gesture-handler": "~2.16.1",
+    "@react-native-async-storage/async-storage": "1.23.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.0",
+    "@types/react": "~18.2.45",
+    "typescript": "^5.3.0",
+    "jest": "^29.0.0",
+    "@testing-library/react-native": "^12.0.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.0",
+    "eslint-plugin-react-native": "^4.1.0"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)"
+    ]
+  },
+  "keywords": [
+    "healthcare",
+    "fhir",
+    "nphies",
+    "hipaa",
+    "brainsait",
+    "health-connect",
+    "healthkit",
+    "react-native",
+    "expo"
+  ],
+  "author": "Dr. Mohamed El Fadil <contact@brainsait.io>",
+  "license": "MIT",
+  "private": true
+}
