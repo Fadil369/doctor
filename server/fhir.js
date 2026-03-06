@@ -6,6 +6,8 @@
 
 'use strict';
 
+const crypto = require('crypto');
+
 // LOINC codes for health metrics
 const LOINC_CODES = {
   steps:        { code: '41950-7', display: 'Number of steps in 24 hour Measured' },
@@ -37,7 +39,8 @@ const UCUM_UNITS = {
  * Generate a FHIR-compliant UUID-like identifier
  */
 function generateFhirId() {
-  return 'obs-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 9);
+  const randomSuffix = crypto.randomBytes(5).toString('hex'); // 10 hex chars ≈ previous 7 base36 chars
+  return 'obs-' + Date.now().toString(36) + '-' + randomSuffix;
 }
 
 /**

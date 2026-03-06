@@ -10,6 +10,7 @@
 
 'use strict';
 
+const crypto = require('crypto');
 const { generateFhirId } = require('../fhir');
 
 // ---------------------------------------------------------------------------
@@ -25,7 +26,8 @@ const followUps = new Map();
 // ID helpers
 // ---------------------------------------------------------------------------
 function makeId(prefix) {
-  return `${prefix}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 7)}`;
+  const randomSuffix = crypto.randomBytes(3).toString('hex'); // 6 hex chars ≈ previous 5 base36 chars
+  return `${prefix}-${Date.now().toString(36)}-${randomSuffix}`;
 }
 
 // ---------------------------------------------------------------------------
