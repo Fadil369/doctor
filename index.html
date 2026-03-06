@@ -4940,7 +4940,14 @@
 
         // Minimal sanitization: strip HTML tags from text inputs
         function sanitizeText(str) {
-            return (str || '').replace(/<[^>]*>/g, '').trim().slice(0, 2000);
+            let result = (str || '');
+            let previous;
+            // Repeatedly remove tags until no more matches can be found
+            do {
+                previous = result;
+                result = result.replace(/<[^>]*>/g, '');
+            } while (result !== previous);
+            return result.trim().slice(0, 2000);
         }
 
         // Safe HTML escaping to prevent XSS when inserting user content into HTML
