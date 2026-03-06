@@ -31,6 +31,8 @@
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://thefadil.site">
+    <!-- Color scheme hint for native UI controls -->
+    <meta name="color-scheme" content="dark light">
 
     <!-- Performance optimized resource hints -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -3121,26 +3123,88 @@
             margin-left: 1rem;
             margin-right: 0;
         }
+
+        /* ============================
+           PRINT STYLESHEET
+           ============================ */
+        @media print {
+            /* Hide non-essential UI */
+            .nav, .particles, .animated-bg, canvas, .control-panel,
+            .biometric-display, .impact-dashboard, .ai-chat-toggle,
+            #aiChatAssistant, #backToTop, .site-footer nav,
+            .modal, .cta-buttons button, .mobile-menu-btn,
+            .pull-refresh-indicator { display: none !important; }
+
+            body {
+                background: #fff !important;
+                color: #000 !important;
+                font-size: 12pt;
+                line-height: 1.5;
+            }
+
+            a { color: #000 !important; text-decoration: underline; }
+            a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 10pt; }
+
+            .hero { min-height: auto; padding: 20pt 0; }
+            .section { padding: 20pt 0; break-inside: avoid; }
+            .card { break-inside: avoid; border: 1px solid #ccc; box-shadow: none; }
+
+            .section-title {
+                background: none !important;
+                -webkit-text-fill-color: #000 !important;
+                color: #000 !important;
+            }
+
+            /* Force light background on cards */
+            .card, .glass, .business-card {
+                background: #f9f9f9 !important;
+                backdrop-filter: none !important;
+            }
+        }
+
+        /* ============================
+           ACTIVE NAV LINK
+           ============================ */
+        .nav-links a.active {
+            color: var(--accent-cyan) !important;
+        }
+        .nav-links a.active::after {
+            width: 100% !important;
+        }
     </style>
 </head>
 <body>
+    <!-- Noscript warning for JS-dependent features -->
+    <noscript>
+        <div style="
+            position: fixed; top: 0; left: 0; right: 0; z-index: 99999;
+            background: #1a365d; color: #e2e8f0; padding: 12px 20px;
+            text-align: center; font-family: sans-serif; font-size: 14px;
+            border-bottom: 3px solid #0ea5e9;
+        ">
+            <strong>JavaScript is required</strong> for the full experience.
+            Core content is still accessible below.
+        </div>
+    </noscript>
+
     <!-- Accessibility Skip Link -->
     <a href="#main" class="skip-link">Skip to main content</a>
     
     <!-- Animated Background -->
     <div class="animated-bg"></div>
     
-    <!-- Floating Particles -->
-    <div class="particles" id="particles"></div>
+    <!-- Floating Particles (decorative) -->
+    <div class="particles" id="particles" aria-hidden="true" role="presentation"></div>
     
-    <!-- Neural Network Visualization -->
-    <canvas id="neuralNetwork" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; opacity: 0.6;"></canvas>
-    
+    <!-- Neural Network Visualization (decorative, hidden from AT) -->
+    <canvas id="neuralNetwork" aria-hidden="true" role="presentation"
+            style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; opacity: 0.6;"></canvas>
+
     <!-- Reaction Overlay -->
-    <div class="reaction-overlay" id="reactionOverlay"></div>
-    
-    <!-- Biometric Display -->
-    <div class="biometric-display" id="biometricDisplay">
+    <div class="reaction-overlay" id="reactionOverlay" aria-hidden="true"></div>
+
+    <!-- Biometric Display (decorative/simulated values, hidden from AT) -->
+    <div class="biometric-display" id="biometricDisplay" aria-hidden="true" role="presentation">
         <div class="biometric-item">
             <div class="pulse-indicator"></div>
             <span>HR: <span class="biometric-value" id="heartRate">72</span> BPM</span>
@@ -4414,54 +4478,54 @@
             <form id="consultationForm" onsubmit="submitConsultationForm(event)">
                 <div class="form-grid">
                     <div class="form-group">
-                        <label class="form-label">
+                        <label for="consult-fullName" class="form-label">
                             <span class="en-content">Full Name *</span>
-                            <span class="ar-content hidden">الاسم الكامل *</span>
+                            <span class="ar-content hidden" lang="ar">الاسم الكامل *</span>
                         </label>
-                        <input type="text" name="fullName" class="form-field" required 
-                               placeholder="Dr. Sarah Johnson">
+                        <input type="text" id="consult-fullName" name="fullName" class="form-field" required
+                               autocomplete="name" placeholder="Dr. Sarah Johnson"
+                               aria-required="true">
                     </div>
-                    
+
                     <div class="form-group">
-                        <label class="form-label">
+                        <label for="consult-email" class="form-label">
                             <span class="en-content">Email Address *</span>
-                            <span class="ar-content hidden">البريد الإلكتروني *</span>
+                            <span class="ar-content hidden" lang="ar">البريد الإلكتروني *</span>
                         </label>
-                        <input type="email" name="email" class="form-field" required 
-                               placeholder="sarah@hospital.com">
+                        <input type="email" id="consult-email" name="email" class="form-field" required
+                               autocomplete="email" placeholder="sarah@hospital.com"
+                               aria-required="true">
                     </div>
                 </div>
-                
+
                 <div class="form-grid">
                     <div class="form-group">
-                        <label class="form-label">
+                        <label for="consult-phone" class="form-label">
                             <span class="en-content">Phone Number</span>
-                            <span class="ar-content hidden">رقم الهاتف</span>
+                            <span class="ar-content hidden" lang="ar">رقم الهاتف</span>
                         </label>
-                        <input type="tel" name="phone" class="form-field" 
-                               placeholder="+1 (555) 123-4567">
+                        <input type="tel" id="consult-phone" name="phone" class="form-field"
+                               autocomplete="tel" placeholder="+1 (555) 123-4567">
                     </div>
-                    
+
                     <div class="form-group">
-                        <label class="form-label">
+                        <label for="consult-organization" class="form-label">
                             <span class="en-content">Organization</span>
-                            <span class="ar-content hidden">المؤسسة</span>
+                            <span class="ar-content hidden" lang="ar">المؤسسة</span>
                         </label>
-                        <input type="text" name="organization" class="form-field" 
-                               placeholder="City General Hospital">
+                        <input type="text" id="consult-organization" name="organization" class="form-field"
+                               autocomplete="organization" placeholder="City General Hospital">
                     </div>
                 </div>
-                
+
                 <div class="form-group">
-                    <label class="form-label">
+                    <label for="consult-serviceType" class="form-label">
                         <span class="en-content">Service Type *</span>
-                        <span class="ar-content hidden">نوع الخدمة *</span>
+                        <span class="ar-content hidden" lang="ar">نوع الخدمة *</span>
                     </label>
-                    <select name="serviceType" class="form-field" required>
-                        <option value="">
-                            <span class="en-content">Select a service...</span>
-                            <span class="ar-content hidden">اختر خدمة...</span>
-                        </option>
+                    <select id="consult-serviceType" name="serviceType" class="form-field" required
+                            aria-required="true">
+                        <option value="">Select a service...</option>
                         <option value="healthcare-ai">Healthcare AI Implementation</option>
                         <option value="fhir-integration">FHIR/HL7 Integration</option>
                         <option value="clinical-nlp">Clinical NLP Solutions</option>
@@ -4472,13 +4536,14 @@
                         <option value="consultation">General Consultation</option>
                     </select>
                 </div>
-                
+
                 <div class="form-group">
-                    <label class="form-label">
+                    <label for="consult-projectDescription" class="form-label">
                         <span class="en-content">Project Description *</span>
-                        <span class="ar-content hidden">وصف المشروع *</span>
+                        <span class="ar-content hidden" lang="ar">وصف المشروع *</span>
                     </label>
-                    <textarea name="projectDescription" class="form-field" rows="5" required
+                    <textarea id="consult-projectDescription" name="projectDescription" class="form-field"
+                              rows="5" required aria-required="true"
                               placeholder="Please describe your healthcare technology needs, current challenges, and desired outcomes..."></textarea>
                 </div>
                 
@@ -4505,7 +4570,9 @@
         })();
 
         let isArabic = false;
-        let currentTheme = 'dark';
+        // Detect system preference if no saved theme; default dark
+        let currentTheme = localStorage.getItem('theme') ||
+            (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
 
         // Initialize particles with performance optimization
         function initParticles() {
@@ -4535,22 +4602,35 @@
         }
 
         // Theme toggle functionality
-        function toggleTheme() {
+        function applyTheme(theme) {
             const root = document.documentElement;
             const themeToggle = document.getElementById('themeToggle');
-            
-            if (currentTheme === 'dark') {
+            const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+
+            if (theme === 'light') {
                 root.setAttribute('data-theme', 'light');
-                themeToggle.innerHTML = '<i class="fas fa-sun" aria-hidden="true"></i>';
+                if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-sun" aria-hidden="true"></i>';
+                if (themeColorMeta) themeColorMeta.setAttribute('content', '#f8fafc');
                 currentTheme = 'light';
             } else {
                 root.removeAttribute('data-theme');
-                themeToggle.innerHTML = '<i class="fas fa-moon" aria-hidden="true"></i>';
+                if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-moon" aria-hidden="true"></i>';
+                if (themeColorMeta) themeColorMeta.setAttribute('content', '#0a0a0f');
                 currentTheme = 'dark';
             }
-            
+        }
+
+        function toggleTheme() {
+            applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
             localStorage.setItem('theme', currentTheme);
         }
+
+        // Apply saved/system theme immediately (before DOMContentLoaded fires)
+        (function() {
+            const saved = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+            applyTheme(saved || prefersDark);
+        })();
 
         // Language toggle functionality
         function toggleLanguage(lang) {
@@ -4577,6 +4657,26 @@
             });
             
             localStorage.setItem('language', lang);
+        }
+
+        // Active nav link highlighting based on scroll position
+        function updateActiveNavLink(scrollY) {
+            const sections = ['home', 'projects', 'packages', 'tools', 'partnerships', 'consultation', 'contact'];
+            const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+            let current = 'home';
+
+            sections.forEach(id => {
+                const el = document.getElementById(id);
+                if (el && el.getBoundingClientRect().top <= 120) {
+                    current = id;
+                }
+            });
+
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href').slice(1);
+                link.classList.toggle('active', href === current);
+                link.setAttribute('aria-current', href === current ? 'true' : 'false');
+            });
         }
 
         // Enhanced Mobile menu functionality with animations
@@ -4832,35 +4932,69 @@
             }
         }
 
+        // Rate limiting for form submission (prevent spam: 60s cooldown)
+        let lastSubmissionTime = 0;
+        const SUBMISSION_COOLDOWN_MS = 60000;
+
+        // Minimal sanitization: strip HTML tags from text inputs
+        function sanitizeText(str) {
+            return (str || '').replace(/<[^>]*>/g, '').trim().slice(0, 2000);
+        }
+
+        // Basic email format validation
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+        }
+
         // Form submission
         function submitConsultationForm(event) {
             event.preventDefault();
-            
+
+            const now = Date.now();
+            if (now - lastSubmissionTime < SUBMISSION_COOLDOWN_MS) {
+                const secondsLeft = Math.ceil((SUBMISSION_COOLDOWN_MS - (now - lastSubmissionTime)) / 1000);
+                showNotification(
+                    isArabic
+                        ? `يرجى الانتظار ${secondsLeft} ثانية قبل الإرسال مرة أخرى`
+                        : `Please wait ${secondsLeft}s before submitting again`,
+                    'error'
+                );
+                return;
+            }
+
             const form = event.target;
             const formData = new FormData(form);
             const submitBtn = form.querySelector('button[type="submit"]');
-            
+
             // Show loading state
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<div class="loading-spinner"></div><span>' + (isArabic ? 'جاري الإرسال...' : 'Sending...') + '</span>';
-            
-            // Prepare data
+
+            // Prepare and sanitize data
             const consultationData = {
                 timestamp: new Date().toISOString(),
                 language: isArabic ? 'ar' : 'en',
-                fullName: formData.get('fullName'),
-                email: formData.get('email'),
-                phone: formData.get('phone') || 'Not provided',
-                organization: formData.get('organization') || 'Not provided',
-                serviceType: formData.get('serviceType'),
-                projectDescription: formData.get('projectDescription')
+                fullName: sanitizeText(formData.get('fullName')),
+                email: sanitizeText(formData.get('email')),
+                phone: sanitizeText(formData.get('phone')) || 'Not provided',
+                organization: sanitizeText(formData.get('organization')) || 'Not provided',
+                serviceType: sanitizeText(formData.get('serviceType')),
+                projectDescription: sanitizeText(formData.get('projectDescription'))
             };
-            
+
             // Validate required fields
             if (!consultationData.fullName || !consultationData.email || !consultationData.serviceType || !consultationData.projectDescription) {
                 showNotification(isArabic ? 'يرجى ملء جميع الحقول المطلوبة' : 'Please fill in all required fields', 'error');
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fas fa-paper-plane" aria-hidden="true"></i><span>' + (isArabic ? 'حدث خطأ، حاول مرة أخرى' : 'Request Consultation') + '</span>';
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane" aria-hidden="true"></i><span>' + (isArabic ? 'طلب استشارة' : 'Request Consultation') + '</span>';
+                return;
+            }
+
+            // Validate email format
+            if (!isValidEmail(consultationData.email)) {
+                showNotification(isArabic ? 'يرجى إدخال بريد إلكتروني صحيح' : 'Please enter a valid email address', 'error');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane" aria-hidden="true"></i><span>' + (isArabic ? 'طلب استشارة' : 'Request Consultation') + '</span>';
                 return;
             }
             
@@ -4887,8 +5021,9 @@
                 language: consultationData.language,
                 subject: `Healthcare Consultation Request from ${consultationData.fullName}`
             }).then(() => {
+                lastSubmissionTime = Date.now();
                 showNotification(
-                    isArabic ? 'تم إرسال طلب الاستشارة بنجاح! سنتواصل معك قريباً.' : 
+                    isArabic ? 'تم إرسال طلب الاستشارة بنجاح! سنتواصل معك قريباً.' :
                     'Consultation request sent successfully! We\'ll contact you soon.',
                     'success'
                 );
@@ -4911,12 +5046,16 @@
             const notification = document.createElement('div');
             notification.className = `notification ${type}`;
             notification.textContent = message;
-            
+            // Announce to screen readers immediately for errors/success
+            notification.setAttribute('role', type === 'error' ? 'alert' : 'status');
+            notification.setAttribute('aria-live', type === 'error' ? 'assertive' : 'polite');
+            notification.setAttribute('aria-atomic', 'true');
+
             document.body.appendChild(notification);
-            
+
             // Trigger animation
             setTimeout(() => notification.classList.add('show'), 100);
-            
+
             // Remove notification
             setTimeout(() => {
                 notification.classList.remove('show');
@@ -5110,13 +5249,8 @@
             initSwipeGestures();
             initMobileTouchEnhancements();
             
-            // Load saved preferences
-            const savedTheme = localStorage.getItem('theme');
+            // Load saved preferences (theme already applied by applyTheme IIFE above)
             const savedLanguage = localStorage.getItem('language');
-            
-            if (savedTheme === 'light') {
-                toggleTheme();
-            }
             
             if (savedLanguage === 'ar') {
                 toggleLanguage('ar');
@@ -5150,23 +5284,41 @@
             // Initialize DOM cache
             domCache.init();
             
-            // Optimized navbar scroll effect with throttling
-            let navScrollTimeout;
+            // Combined throttled scroll handler: navbar + back-to-top + nav highlight
+            const backToTopBtn = document.getElementById('backToTop');
+            let scrollRafId;
             window.addEventListener('scroll', function() {
-                if (navScrollTimeout) return;
-                
-                navScrollTimeout = setTimeout(() => {
+                if (scrollRafId) return;
+                scrollRafId = requestAnimationFrame(() => {
+                    const scrollY = window.scrollY;
+
+                    // Navbar styling
                     const nav = domCache.get('.nav');
                     if (nav) {
-                        if (window.scrollY > 100) {
-                            nav.style.background = 'rgba(10, 10, 15, 0.95)';
+                        nav.style.background = scrollY > 100
+                            ? 'rgba(10, 10, 15, 0.95)'
+                            : 'rgba(10, 10, 15, 0.8)';
+                    }
+
+                    // Back to top button visibility
+                    if (backToTopBtn) {
+                        if (scrollY > 400) {
+                            backToTopBtn.style.opacity = '1';
+                            backToTopBtn.style.visibility = 'visible';
+                            backToTopBtn.style.transform = 'translateY(0)';
                         } else {
-                            nav.style.background = 'rgba(10, 10, 15, 0.8)';
+                            backToTopBtn.style.opacity = '0';
+                            backToTopBtn.style.visibility = 'hidden';
+                            backToTopBtn.style.transform = 'translateY(10px)';
                         }
                     }
-                    navScrollTimeout = null;
-                }, 16); // ~60fps throttling
-            });
+
+                    // Active nav link highlighting
+                    updateActiveNavLink(scrollY);
+
+                    scrollRafId = null;
+                });
+            }, { passive: true });
         });
 
         // Handle resize events
@@ -5723,47 +5875,17 @@
         const mobileBatteryOptimizer = new MobileBatteryOptimizer();
 
         // ================================
-        // SERVICE WORKER FOR CACHING OPTIMIZATION
+        // SERVICE WORKER REGISTRATION
         // ================================
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                // Register service worker for caching
-                const swScript = `
-                    const CACHE_NAME = 'dr-fadil-profile-v1.2';
-                    const urlsToCache = [
-                        '/',
-                        '/index.html',
-                        'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700',
-                        'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500',
-                        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
-                    ];
-
-                    self.addEventListener('install', (event) => {
-                        event.waitUntil(
-                            caches.open(CACHE_NAME)
-                                .then((cache) => cache.addAll(urlsToCache))
-                        );
-                    });
-
-                    self.addEventListener('fetch', (event) => {
-                        event.respondWith(
-                            caches.match(event.request)
-                                .then((response) => {
-                                    if (response) {
-                                        return response;
-                                    }
-                                    return fetch(event.request);
-                                }
-                            )
-                        );
-                    });
-                `;
-                
-                const swBlob = new Blob([swScript], { type: 'application/javascript' });
-                const swUrl = URL.createObjectURL(swBlob);
-                
-                navigator.serviceWorker.register(swUrl)
-                    .then(() => console.log('Service Worker registered for caching'))
+                // Register the actual sw.js file (blob-URL SWs don't work across origins)
+                navigator.serviceWorker.register('/sw.js', { scope: '/' })
+                    .then(reg => {
+                        console.log('Service Worker registered, scope:', reg.scope);
+                        // Check for updates on each page load
+                        reg.update();
+                    })
                     .catch(error => console.warn('Service Worker registration failed:', error));
             });
         }
@@ -6090,22 +6212,22 @@
 
             createChatInterface() {
                 const chatHTML = `
-                    <div id="aiChatAssistant" class="ai-chat-assistant">
+                    <div id="aiChatAssistant" class="ai-chat-assistant" role="dialog" aria-label="Medical AI Assistant" aria-modal="false">
                         <div class="chat-header">
-                            <div class="chat-avatar">
+                            <div class="chat-avatar" aria-hidden="true">
                                 <i class="fas fa-robot" aria-hidden="true"></i>
                             </div>
                             <div class="chat-title">
-                                <h4>Medical AI Assistant</h4>
+                                <h4 id="chatTitle">Medical AI Assistant</h4>
                                 <p>Ask about BrainSAIT, FHIR, HL7, or healthcare AI</p>
                             </div>
-                            <button class="chat-close" onclick="medicalAI.closeChat()">
+                            <button class="chat-close" onclick="medicalAI.closeChat()" aria-label="Close AI chat assistant">
                                 <i class="fas fa-times" aria-hidden="true"></i>
                             </button>
                         </div>
-                        <div class="chat-messages" id="chatMessages">
+                        <div class="chat-messages" id="chatMessages" role="log" aria-live="polite" aria-label="Conversation messages" aria-atomic="false">
                             <div class="chat-message ai-message">
-                                <div class="message-avatar">
+                                <div class="message-avatar" aria-hidden="true">
                                     <i class="fas fa-stethoscope" aria-hidden="true"></i>
                                 </div>
                                 <div class="message-content">
@@ -6114,15 +6236,19 @@
                             </div>
                         </div>
                         <div class="chat-input-container">
-                            <input type="text" id="chatInput" placeholder="Ask about healthcare AI, FHIR, HL7..." onkeypress="if(event.key==='Enter') medicalAI.sendMessage()">
-                            <button onclick="medicalAI.sendMessage()">
+                            <label for="chatInput" class="sr-only">Your message</label>
+                            <input type="text" id="chatInput" placeholder="Ask about healthcare AI, FHIR, HL7..."
+                                   aria-label="Type your message and press Enter to send"
+                                   onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();medicalAI.sendMessage();}">
+                            <button onclick="medicalAI.sendMessage()" aria-label="Send message">
                                 <i class="fas fa-paper-plane" aria-hidden="true"></i>
                             </button>
                         </div>
                     </div>
-                    <button id="aiChatToggle" class="ai-chat-toggle" onclick="medicalAI.toggleChat()">
+                    <button id="aiChatToggle" class="ai-chat-toggle" onclick="medicalAI.toggleChat()"
+                            aria-label="Open Medical AI Assistant" aria-expanded="false" aria-controls="aiChatAssistant">
                         <i class="fas fa-comment-medical" aria-hidden="true"></i>
-                        <span class="chat-badge">AI</span>
+                        <span class="chat-badge" aria-hidden="true">AI</span>
                     </button>
                 `;
                 document.body.insertAdjacentHTML('beforeend', chatHTML);
@@ -6131,23 +6257,30 @@
             toggleChat() {
                 const chatAssistant = document.getElementById('aiChatAssistant');
                 const chatToggle = document.getElementById('aiChatToggle');
-                
+
                 this.isOpen = !this.isOpen;
-                
+
                 if (this.isOpen) {
                     chatAssistant.classList.add('active');
                     chatToggle.style.transform = 'scale(0.9)';
+                    chatToggle.setAttribute('aria-expanded', 'true');
+                    chatToggle.setAttribute('aria-label', 'Close Medical AI Assistant');
                     document.getElementById('chatInput').focus();
                 } else {
                     chatAssistant.classList.remove('active');
                     chatToggle.style.transform = 'scale(1)';
+                    chatToggle.setAttribute('aria-expanded', 'false');
+                    chatToggle.setAttribute('aria-label', 'Open Medical AI Assistant');
                 }
             }
 
             closeChat() {
                 this.isOpen = false;
+                const chatToggle = document.getElementById('aiChatToggle');
                 document.getElementById('aiChatAssistant').classList.remove('active');
-                document.getElementById('aiChatToggle').style.transform = 'scale(1)';
+                chatToggle.style.transform = 'scale(1)';
+                chatToggle.setAttribute('aria-expanded', 'false');
+                chatToggle.setAttribute('aria-label', 'Open Medical AI Assistant');
             }
 
             sendMessage() {
@@ -7038,6 +7171,34 @@ ${JSON.stringify(data, null, 2)}`;
         });
     </script>
     </main>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" aria-label="Back to top" title="Back to top"
+            style="
+                position: fixed;
+                bottom: 90px;
+                right: 24px;
+                width: 48px;
+                height: 48px;
+                background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+                border: none;
+                border-radius: 50%;
+                color: #fff;
+                font-size: 1.2rem;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 4px 20px rgba(0,212,255,0.4);
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(10px);
+                transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+                z-index: 990;
+            "
+            onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    </button>
 
     <!-- Site Footer -->
     <footer class="site-footer" role="contentinfo" style="
