@@ -1,0 +1,66 @@
+{
+  "expo": {
+    "name": "BrainSAIT Health",
+    "slug": "brainsait-health",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1a365d"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "io.brainsait.health",
+      "infoPlist": {
+        "NSHealthShareUsageDescription": "BrainSAIT Health reads your health data to provide FHIR-compliant health monitoring and sync it securely to your healthcare provider.",
+        "NSHealthUpdateUsageDescription": "BrainSAIT Health may write health records to HealthKit.",
+        "NSFaceIDUsageDescription": "Use Face ID to securely authenticate before accessing your health data."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#1a365d"
+      },
+      "package": "io.brainsait.health",
+      "permissions": [
+        "android.permission.health.READ_STEPS",
+        "android.permission.health.READ_HEART_RATE",
+        "android.permission.health.READ_BLOOD_GLUCOSE",
+        "android.permission.health.READ_BLOOD_PRESSURE",
+        "android.permission.health.READ_OXYGEN_SATURATION",
+        "android.permission.health.READ_BODY_TEMPERATURE",
+        "android.permission.health.READ_WEIGHT",
+        "android.permission.health.READ_SLEEP",
+        "android.permission.health.READ_HEART_RATE_VARIABILITY"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      [
+        "expo-health",
+        {
+          "healthSharePermission": "Allow $(PRODUCT_NAME) to read your health data for FHIR-compliant monitoring.",
+          "healthUpdatePermission": "Allow $(PRODUCT_NAME) to write health records."
+        }
+      ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "brainsait-health-project-id"
+      }
+    },
+    "scheme": "brainsait-health"
+  }
+}

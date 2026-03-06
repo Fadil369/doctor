@@ -7,12 +7,13 @@
     "validate": "htmlhint index.html",
     "deploy": "echo 'Static site - no build required'",
     "serve": "npx serve .",
-    "test": "htmlhint index.html --config .htmlhintrc",
-    "dev": "node server/index.js",
-    "start": "node server/index.js",
-    "graphql": "node server/index.js",
+    "test": "htmlhint index.html --config .htmlhintrc && jest --testPathPattern=server/",
+    "test:fhir": "jest --testPathPattern=server/fhir.test.js --verbose",
+    "dev": "node server/health-server.js",
+    "start": "node server/health-server.js",
+    "graphql": "node server/health-server.js",
     "build": "echo 'Building static assets...' && npm run validate",
-    "check": "node --check server/index.js"
+    "check": "node --check server/health-server.js && node --check server/fhir.js"
   },
   "repository": {
     "type": "git",
@@ -44,6 +45,7 @@
   },
   "devDependencies": {
     "htmlhint": "^1.7.1",
+    "jest": "^29.7.0",
     "serve": "^14.2.5"
   },
   "engines": {
