@@ -12,13 +12,41 @@
       "src": "https://gravatar.com/avatar/fadil369?s=192",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "https://gravatar.com/avatar/fadil369?s=192",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "https://gravatar.com/avatar/fadil369?s=512",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "https://gravatar.com/avatar/fadil369?s=512",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Book Consultation",
+      "short_name": "Consult",
+      "description": "Schedule a consultation with Dr. Fadil",
+      "url": "/#consultation",
+      "icons": [{ "src": "https://gravatar.com/avatar/fadil369?s=96", "sizes": "96x96" }]
+    },
+    {
+      "name": "FHIR Playground",
+      "short_name": "FHIR",
+      "description": "Explore healthcare data interoperability tools",
+      "url": "/#tools",
+      "icons": [{ "src": "https://gravatar.com/avatar/fadil369?s=96", "sizes": "96x96" }]
     }
   ],
   "categories": ["medical", "health", "technology", "education"],

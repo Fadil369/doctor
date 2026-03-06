@@ -31,6 +31,8 @@
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://thefadil.site">
+    <!-- Web App Manifest (PWA) -->
+    <link rel="manifest" href="/manifest.json">
     <!-- Color scheme hint for native UI controls -->
     <meta name="color-scheme" content="dark light">
 
@@ -4675,7 +4677,7 @@
             navLinks.forEach(link => {
                 const href = link.getAttribute('href').slice(1);
                 link.classList.toggle('active', href === current);
-                link.setAttribute('aria-current', href === current ? 'true' : 'false');
+                link.setAttribute('aria-current', href === current ? 'location' : 'false');
             });
         }
 
@@ -4939,6 +4941,13 @@
         // Minimal sanitization: strip HTML tags from text inputs
         function sanitizeText(str) {
             return (str || '').replace(/<[^>]*>/g, '').trim().slice(0, 2000);
+        }
+
+        // Safe HTML escaping to prevent XSS when inserting user content into HTML
+        function escapeHTML(str) {
+            const d = document.createElement('div');
+            d.textContent = String(str);
+            return d.innerHTML;
         }
 
         // Basic email format validation
@@ -6239,6 +6248,7 @@
                             <label for="chatInput" class="sr-only">Your message</label>
                             <input type="text" id="chatInput" placeholder="Ask about healthcare AI, FHIR, HL7..."
                                    aria-label="Type your message and press Enter to send"
+                                   maxlength="500"
                                    onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();medicalAI.sendMessage();}">
                             <button onclick="medicalAI.sendMessage()" aria-label="Send message">
                                 <i class="fas fa-paper-plane" aria-hidden="true"></i>
@@ -6304,13 +6314,14 @@
 
             addMessage(content, type) {
                 const messagesContainer = document.getElementById('chatMessages');
+                const safeContent = type === 'user' ? escapeHTML(content) : content;
                 const messageHTML = `
                     <div class="chat-message ${type}-message">
                         <div class="message-avatar">
                             <i class="fas fa-${type === 'user' ? 'user' : 'stethoscope'}" aria-hidden="true"></i>
                         </div>
                         <div class="message-content">
-                            <p>${content}</p>
+                            <p>${safeContent}</p>
                         </div>
                     </div>
                 `;
@@ -6693,9 +6704,13 @@ RXE|^Q1D^D10^^^R|197361^Lisinopril 10 MG Oral Tablet^RXN|1|TABLET|||||1^tablet^d
                             transformedData = this.transformJSON(inputData);
                         }
 
-                        // Display transformed data
+                        // Display transformed data safely (no innerHTML with user content)
                         const outputDiv = document.getElementById('outputData');
-                        outputDiv.innerHTML = `<pre style="margin: 0; white-space: pre-wrap; font-family: 'Courier New', monospace; color: var(--text-primary);">${transformedData}</pre>`;
+                        const pre = document.createElement('pre');
+                        pre.style.cssText = 'margin: 0; white-space: pre-wrap; font-family: "Courier New", monospace; color: var(--text-primary);';
+                        pre.textContent = transformedData;
+                        outputDiv.innerHTML = '';
+                        outputDiv.appendChild(pre);
                         
                         // Update processing time
                         const processingTime = Math.round(performance.now() - startTime);
@@ -6849,13 +6864,25 @@ ${JSON.stringify(data, null, 2)}`;
             updateInputStatus(type, message) {
                 const statusDiv = document.getElementById('inputStatus');
                 statusDiv.className = `data-status ${type}`;
-                statusDiv.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-triangle' : 'info-circle'}" aria-hidden="true"></i> ${message}`;
+                const iconClass = type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-triangle' : 'info-circle';
+                statusDiv.innerHTML = '';
+                const icon = document.createElement('i');
+                icon.className = `fas fa-${iconClass}`;
+                icon.setAttribute('aria-hidden', 'true');
+                statusDiv.appendChild(icon);
+                statusDiv.append(' ' + message);
             }
 
             updateOutputStatus(type, message) {
                 const statusDiv = document.getElementById('outputStatus');
                 statusDiv.className = `data-status ${type}`;
-                statusDiv.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-triangle' : 'clock'}" aria-hidden="true"></i> ${message}`;
+                const iconClass = type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-triangle' : 'clock';
+                statusDiv.innerHTML = '';
+                const icon = document.createElement('i');
+                icon.className = `fas fa-${iconClass}`;
+                icon.setAttribute('aria-hidden', 'true');
+                statusDiv.appendChild(icon);
+                statusDiv.append(' ' + message);
             }
 
             clearOutput() {
