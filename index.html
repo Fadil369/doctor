@@ -29,6 +29,9 @@
     <meta name="twitter:image" content="https://gravatar.com/avatar/fadil369">
     <meta name="twitter:creator" content="@brainsait369">
     
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://thefadil.site">
+
     <!-- Performance optimized resource hints -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -109,11 +112,11 @@
     <style>
         /* Critical above-the-fold styles with GPU acceleration */
         *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#0a0a0f;color:#fff;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;transform:translateZ(0);will-change:scroll-position}
+        body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#0a0a0f;color:#fff;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
         .hero{min-height:100vh;display:flex;align-items:center;padding:100px 20px 50px;position:relative;transform:translateZ(0)}
         .hero-container{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;contain:layout style paint}
         .hero-content h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:900;margin-bottom:1rem;background:linear-gradient(135deg,#00d4ff,#9333ea,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1;contain:layout style paint}
-        .nav{position:fixed;top:0;width:100%;z-index:999;background:rgba(10,10,15,.8);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.15);transition:background .3s ease;transform:translateZ(0);will-change:background}
+        .nav{position:fixed;top:0;width:100%;z-index:999;background:rgba(10,10,15,.8);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.15);transition:background .3s ease;}
         .nav-container{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center;height:70px;contain:layout style}
         .logo{font-size:1.5rem;font-weight:900;background:linear-gradient(135deg,#00d4ff,#9333ea);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;contain:layout style paint}
         
@@ -249,6 +252,10 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        button, a, [role="button"] {
+            touch-action: manipulation;
         }
 
         body {
@@ -3290,16 +3297,16 @@
     </div>
     
     <!-- Navigation -->
-    <nav class="nav">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
         <div class="nav-container">
-            <a href="#" class="logo">
+            <a href="#home" class="logo" aria-label="BrainSAIT - go to home">
                 <span class="en-content">BrainSAIT</span>
                 <span class="ar-content hidden">برينسايت</span>
             </a>
-            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
                 <i class="fas fa-bars" aria-hidden="true"></i>
             </button>
-            <ul class="nav-links" id="navLinks">
+            <ul class="nav-links" id="navLinks" role="list">
                 <li><a href="#home">
                     <span class="en-content">Home</span>
                     <span class="ar-content hidden">الرئيسية</span>
@@ -3339,19 +3346,19 @@
             <div class="hero-content">
                 <h1>
                     <span class="en-content">Dr. Mohamed El Fadil</span>
-                    <span class="ar-content hidden">د. محمد الفاضل</span>
+                    <span class="ar-content hidden" lang="ar">د. محمد الفاضل</span>
                 </h1>
                 <p class="hero-subtitle">
                     <span class="en-content">Physician Entrepreneur & Healthcare AI Innovator</span>
-                    <span class="ar-content hidden">طبيب رائد أعمال ومبتكر الذكاء الاصطناعي الطبي</span>
+                    <span class="ar-content hidden" lang="ar">طبيب رائد أعمال ومبتكر الذكاء الاصطناعي الطبي</span>
                 </p>
                 <p class="hero-description">
                     <span class="en-content">
-                        Transforming healthcare through cutting-edge AI solutions with BrainSAIT platform. 
-                        Creator of brainsait-pyheart and brainsait-pybrain PyPI packages. Expert in FHIR, HL7, 
+                        Transforming healthcare through cutting-edge AI solutions with BrainSAIT platform.
+                        Creator of brainsait-pyheart and brainsait-pybrain PyPI packages. Expert in FHIR, HL7,
                         Clinical NLP, and Healthcare Interoperability.
                     </span>
-                    <span class="ar-content hidden">
+                    <span class="ar-content hidden" lang="ar">
                         تحويل الرعاية الصحية من خلال حلول الذكاء الاصطناعي المتطورة مع منصة برينسايت.
                         منشئ حزم brainsait-pyheart و brainsait-pybrain على PyPI. خبير في FHIR و HL7
                         ومعالجة اللغة الطبيعية السريرية وقابلية التشغيل البيني للرعاية الصحية.
@@ -3510,7 +3517,7 @@
             </p>
             
             <div class="grid">
-                <a href="https://gp.thefadil.site" target="_blank" class="card heartbeat-zone medical-cursor" ondblclick="addMedicalReaction(event, '🩺')">
+                <a href="https://gp.thefadil.site" target="_blank" rel="noopener noreferrer" class="card heartbeat-zone medical-cursor" ondblclick="addMedicalReaction(event, '🩺')">
                     <div class="card-icon">
                         <i class="fas fa-user-md" aria-hidden="true"></i>
                     </div>
@@ -3524,7 +3531,7 @@
                     </p>
                 </a>
                 
-                <a href="https://givc.brainsait.io" target="_blank" class="card heartbeat-zone medical-cursor" ondblclick="addMedicalReaction(event, '🧠')">
+                <a href="https://givc.brainsait.io" target="_blank" rel="noopener noreferrer" class="card heartbeat-zone medical-cursor" ondblclick="addMedicalReaction(event, '🧠')">
                     <div class="card-icon">
                         <i class="fas fa-brain" aria-hidden="true"></i>
                     </div>
@@ -3538,7 +3545,7 @@
                     </p>
                 </a>
                 
-                <a href="https://brainsait.io" target="_blank" class="card heartbeat-zone medical-cursor" ondblclick="addMedicalReaction(event, '🏥')">
+                <a href="https://brainsait.io" target="_blank" rel="noopener noreferrer" class="card heartbeat-zone medical-cursor" ondblclick="addMedicalReaction(event, '🏥')">
                     <div class="card-icon">
                         <i class="fas fa-hospital" aria-hidden="true"></i>
                     </div>
@@ -3552,7 +3559,7 @@
                     </p>
                 </a>
                 
-                <a href="https://care.brainsait.io" target="_blank" class="card heartbeat-zone medical-cursor" ondblclick="addMedicalReaction(event, '❤️')">
+                <a href="https://care.brainsait.io" target="_blank" rel="noopener noreferrer" class="card heartbeat-zone medical-cursor" ondblclick="addMedicalReaction(event, '❤️')">
                     <div class="card-icon">
                         <i class="fas fa-heart" aria-hidden="true"></i>
                     </div>
@@ -3566,7 +3573,7 @@
                     </p>
                 </a>
                 
-                <a href="https://read.thefadil.site/" target="_blank" class="card heartbeat-zone medical-cursor" ondblclick="addMedicalReaction(event, '📚')">
+                <a href="https://read.thefadil.site/" target="_blank" rel="noopener noreferrer" class="card heartbeat-zone medical-cursor" ondblclick="addMedicalReaction(event, '📚')">
                     <div class="card-icon">
                         <i class="fas fa-book-open" aria-hidden="true"></i>
                     </div>
@@ -3580,7 +3587,7 @@
                     </p>
                 </a>
                 
-                <a href="https://givc-academy.brainsait.io" target="_blank" class="card heartbeat-zone medical-cursor" ondblclick="addMedicalReaction(event, '🎓')">
+                <a href="https://givc-academy.brainsait.io" target="_blank" rel="noopener noreferrer" class="card heartbeat-zone medical-cursor" ondblclick="addMedicalReaction(event, '🎓')">
                     <div class="card-icon">
                         <i class="fas fa-graduation-cap" aria-hidden="true"></i>
                     </div>
@@ -3724,7 +3731,7 @@
             </p>
             
             <div class="grid">
-                <a href="https://context.thefadil.site/" target="_blank" class="card">
+                <a href="https://context.thefadil.site/" target="_blank" rel="noopener noreferrer" class="card">
                     <div class="card-icon">
                         <i class="fas fa-brain" aria-hidden="true"></i>
                     </div>
@@ -3738,7 +3745,7 @@
                     </p>
                 </a>
                 
-                <a href="https://excel-advanced-consolidator.fadil.workers.dev/" target="_blank" class="card">
+                <a href="https://excel-advanced-consolidator.fadil.workers.dev/" target="_blank" rel="noopener noreferrer" class="card">
                     <div class="card-icon">
                         <i class="fas fa-table" aria-hidden="true"></i>
                     </div>
@@ -3752,7 +3759,7 @@
                     </p>
                 </a>
                 
-                <a href="https://healthcare-insurance-analysis.fadil.workers.dev/" target="_blank" class="card">
+                <a href="https://healthcare-insurance-analysis.fadil.workers.dev/" target="_blank" rel="noopener noreferrer" class="card">
                     <div class="card-icon">
                         <i class="fas fa-chart-bar" aria-hidden="true"></i>
                     </div>
@@ -4369,22 +4376,22 @@
             </p>
             
             <div class="social-links">
-                <a href="https://github.com/Fadil369" target="_blank" class="social-link" aria-label="GitHub">
-                    <i class="fab fa-github"></i>
+                <a href="https://github.com/Fadil369" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub profile">
+                    <i class="fab fa-github" aria-hidden="true"></i>
                 </a>
-                <a href="https://linkedin.com/in/brainsait" target="_blank" class="social-link" aria-label="LinkedIn">
-                    <i class="fab fa-linkedin"></i>
+                <a href="https://linkedin.com/in/brainsait" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn profile">
+                    <i class="fab fa-linkedin" aria-hidden="true"></i>
                 </a>
-                <a href="https://pypi.org/user/Fadil369/" target="_blank" class="social-link" aria-label="PyPI">
-                    <i class="fab fa-python"></i>
+                <a href="https://pypi.org/user/Fadil369/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="PyPI packages">
+                    <i class="fab fa-python" aria-hidden="true"></i>
                 </a>
-                <a href="mailto:brainsait@hotmail.com" class="social-link" aria-label="Email">
+                <a href="mailto:brainsait@hotmail.com" class="social-link" aria-label="Send email">
                     <i class="fas fa-envelope" aria-hidden="true"></i>
                 </a>
-                <a href="https://brainsait.io" target="_blank" class="social-link" aria-label="Website">
+                <a href="https://brainsait.io" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="BrainSAIT website">
                     <i class="fas fa-globe" aria-hidden="true"></i>
                 </a>
-                <a href="https://calendly.com/brainsait/consultation" target="_blank" class="social-link" aria-label="Schedule">
+                <a href="https://calendly.com/brainsait/consultation" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Schedule a consultation">
                     <i class="fas fa-calendar-alt" aria-hidden="true"></i>
                 </a>
             </div>
@@ -4392,16 +4399,16 @@
     </section>
 
     <!-- Consultation Modal -->
-    <div id="consultationModal" class="modal">
+    <div id="consultationModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="consultationModalTitle">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeConsultationModal()" aria-label="Close modal">
+            <button class="modal-close" onclick="closeConsultationModal()" aria-label="Close consultation modal">
                 <i class="fas fa-times" aria-hidden="true"></i>
             </button>
             
-            <h3 style="margin-bottom: 1.5rem; text-align: center; color: var(--accent-cyan);">
+            <h3 id="consultationModalTitle" style="margin-bottom: 1.5rem; text-align: center; color: var(--accent-cyan);">
                 <i class="fas fa-stethoscope" aria-hidden="true"></i>
                 <span class="en-content">Healthcare Consultation Request</span>
-                <span class="ar-content hidden">طلب استشارة طبية</span>
+                <span class="ar-content hidden" lang="ar">طلب استشارة طبية</span>
             </h3>
             
             <form id="consultationForm" onsubmit="submitConsultationForm(event)">
@@ -4488,9 +4495,13 @@
 
     <script>
         // Initialize EmailJS with proper configuration
+        const EMAILJS_PUBLIC_KEY = window.EMAILJS_PUBLIC_KEY || '';
         (function() {
-            // EmailJS configuration - Replace with your actual EmailJS public key
-            emailjs.init("your_emailjs_public_key"); // Replace with actual EmailJS public key
+            if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY && EMAILJS_PUBLIC_KEY !== 'your_emailjs_public_key') {
+                emailjs.init(EMAILJS_PUBLIC_KEY);
+            } else if (typeof emailjs !== 'undefined' && (!EMAILJS_PUBLIC_KEY || EMAILJS_PUBLIC_KEY === 'your_emailjs_public_key')) {
+                console.warn('EmailJS: Public key not configured. Set window.EMAILJS_PUBLIC_KEY before the script loads.');
+            }
         })();
 
         let isArabic = false;
@@ -4572,11 +4583,13 @@
         function toggleMobileMenu() {
             const navLinks = document.getElementById('navLinks');
             const menuBtn = document.getElementById('mobileMenuBtn');
-            
+
             navLinks.classList.toggle('active');
             menuBtn.classList.toggle('active');
-            
+
             const isActive = navLinks.classList.contains('active');
+            menuBtn.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+            menuBtn.setAttribute('aria-label', isActive ? 'Close menu' : 'Open menu');
             menuBtn.innerHTML = isActive ? '<i class="fas fa-times" aria-hidden="true"></i>' : '<i class="fas fa-bars" aria-hidden="true"></i>';
             
             // Haptic feedback on supported devices
@@ -4654,6 +4667,8 @@
                         if (navLinks.classList.contains('active')) {
                             navLinks.classList.remove('active');
                             menuBtn.classList.remove('active');
+                            menuBtn.setAttribute('aria-expanded', 'false');
+                            menuBtn.setAttribute('aria-label', 'Open menu');
                             menuBtn.innerHTML = '<i class="fas fa-bars" aria-hidden="true"></i>';
                             document.body.style.overflow = '';
                         }
@@ -4768,33 +4783,53 @@
         }
 
         // Modal functions
+        let modalOpener = null;
         function openConsultationModal() {
-            document.getElementById('consultationModal').classList.add('active');
+            modalOpener = document.activeElement;
+            const modal = document.getElementById('consultationModal');
+            modal.classList.add('active');
             document.body.style.overflow = 'hidden';
+            // Move focus to the first focusable element in the modal
+            const firstFocusable = modal.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            if (firstFocusable) firstFocusable.focus();
         }
 
         function closeConsultationModal() {
             document.getElementById('consultationModal').classList.remove('active');
             document.body.style.overflow = 'auto';
-            
             // Reset form
             document.getElementById('consultationForm').reset();
+            // Return focus to the element that opened the modal
+            if (modalOpener && modalOpener.focus) modalOpener.focus();
+            modalOpener = null;
         }
 
         // Copy to clipboard function
         function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                showNotification(isArabic ? 'تم النسخ بنجاح!' : 'Copied to clipboard!', 'success');
-            }).catch(() => {
-                // Fallback for older browsers
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showNotification(isArabic ? 'تم النسخ بنجاح!' : 'Copied to clipboard!', 'success');
+                }).catch(() => {
+                    showNotification(isArabic ? 'تعذّر النسخ. يرجى النسخ يدويًا.' : 'Copy failed. Please copy manually.', 'error');
+                });
+            } else {
+                // Fallback for non-secure contexts (HTTP) - selection approach without execCommand
                 const textArea = document.createElement('textarea');
                 textArea.value = text;
+                textArea.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0;';
                 document.body.appendChild(textArea);
+                textArea.focus();
                 textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                showNotification(isArabic ? 'تم النسخ بنجاح!' : 'Copied to clipboard!', 'success');
-            });
+                try {
+                    // eslint-disable-next-line no-restricted-syntax
+                    document.execCommand('copy');
+                    showNotification(isArabic ? 'تم النسخ بنجاح!' : 'Copied to clipboard!', 'success');
+                } catch {
+                    showNotification(isArabic ? 'تعذّر النسخ. يرجى النسخ يدويًا.' : 'Copy failed. Please copy manually.', 'error');
+                } finally {
+                    document.body.removeChild(textArea);
+                }
+            }
         }
 
         // Form submission
@@ -4830,6 +4865,16 @@
             }
             
             // Send email using EmailJS to brainsait@hotmail.com
+            if (typeof emailjs === 'undefined' || !EMAILJS_PUBLIC_KEY || EMAILJS_PUBLIC_KEY === 'your_emailjs_public_key') {
+                showNotification(
+                    isArabic ? 'خدمة البريد الإلكتروني غير مهيأة. يرجى التواصل عبر brainsait@hotmail.com' :
+                    'Email service not configured. Please contact brainsait@hotmail.com directly.',
+                    'error'
+                );
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane" aria-hidden="true"></i><span>' + (isArabic ? 'طلب استشارة' : 'Request Consultation') + '</span>';
+                return;
+            }
             emailjs.send('service_brainsait', 'template_consultation', {
                 to_email: 'brainsait@hotmail.com',
                 from_name: consultationData.fullName,
@@ -4934,12 +4979,12 @@
                 }, { passive: true });
             });
             
-            // Prevent double-tap zoom on buttons
-            document.querySelectorAll('.btn, button').forEach(button => {
-                button.addEventListener('touchend', (e) => {
-                    e.preventDefault();
-                    button.click();
-                });
+            // Prevent double-tap zoom on interactive buttons using CSS touch-action instead
+            // Note: touch-action: manipulation is the correct CSS-only solution; JS e.preventDefault()
+            // on touchend breaks screen reader virtual cursor and accessibility tooling.
+            const touchButtons = document.querySelectorAll('.btn, button');
+            touchButtons.forEach(button => {
+                button.style.touchAction = 'manipulation';
             });
             
             // Improve form input experience on mobile
@@ -4988,7 +5033,7 @@
                 { icon: 'home', label: 'Home', href: '#home' },
                 { icon: 'code', label: 'Projects', href: '#projects' },
                 { icon: 'box', label: 'PyPI', href: '#packages' },
-                { icon: 'stethoscope', label: 'Consult', action: 'openConsultationModal()' },
+                { icon: 'stethoscope', label: 'Consult', actionFn: openConsultationModal },
                 { icon: 'envelope', label: 'Contact', href: '#contact' }
             ];
             
@@ -5021,9 +5066,9 @@
                         document.querySelector(item.href)?.scrollIntoView({ behavior: 'smooth' });
                         if (navigator.vibrate) navigator.vibrate(5);
                     };
-                } else if (item.action) {
+                } else if (item.actionFn) {
                     btn.onclick = () => {
-                        eval(item.action);
+                        item.actionFn();
                         if (navigator.vibrate) navigator.vibrate(5);
                     };
                 }
@@ -6993,5 +7038,35 @@ ${JSON.stringify(data, null, 2)}`;
         });
     </script>
     </main>
+
+    <!-- Site Footer -->
+    <footer class="site-footer" role="contentinfo" style="
+        background: var(--bg-tertiary);
+        border-top: 1px solid var(--glass-border);
+        padding: 2rem 20px;
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 0.875rem;
+    ">
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem;">
+            <p>
+                &copy; <span id="footerYear"></span>
+                <a href="https://brainsait.io" target="_blank" rel="noopener noreferrer" style="color: var(--accent-cyan); text-decoration: none;">BrainSAIT</a>
+                &mdash; Dr. Mohamed El Fadil. All rights reserved.
+            </p>
+            <nav aria-label="Footer navigation">
+                <ul style="list-style:none; display:flex; gap:1.5rem; flex-wrap:wrap; justify-content:center;">
+                    <li><a href="#home" style="color:var(--text-muted);text-decoration:none;" aria-label="Go to Home">Home</a></li>
+                    <li><a href="#projects" style="color:var(--text-muted);text-decoration:none;">Projects</a></li>
+                    <li><a href="#packages" style="color:var(--text-muted);text-decoration:none;">PyPI</a></li>
+                    <li><a href="#contact" style="color:var(--text-muted);text-decoration:none;">Contact</a></li>
+                    <li><a href="mailto:brainsait@hotmail.com" style="color:var(--text-muted);text-decoration:none;">Email</a></li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+    <script>
+        document.getElementById('footerYear').textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>
